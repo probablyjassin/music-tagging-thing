@@ -1,2 +1,7 @@
 pydub
-# music-tag
+pyacoustid
+python-dotenv
+mutagen
+musicbrainzngs
+requests
+fuzzywuzzy
