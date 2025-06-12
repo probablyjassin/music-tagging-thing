@@ -1,6 +1,6 @@
 import os
 from mutagen.mp3 import MP3
-from mutagen.id3 import ID3, TIT2, TPE1, TALB, TDRC, TRCK, TCON, APIC, ID3NoHeaderError
+from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TCON, APIC, ID3NoHeaderError
 
 
 def tag_mp3_file(mp3_filepath, metadata: dict[str, str], cover_art_path=None):
