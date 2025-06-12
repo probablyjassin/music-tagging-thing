@@ -8,3 +8,5 @@ covers
 .vscode
 __pycache__
 *.py[cod]
+test
+test/*

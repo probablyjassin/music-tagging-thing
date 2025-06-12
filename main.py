@@ -3,6 +3,8 @@ from pydub import AudioSegment
 
 from detection import detect_audio_from_file
 from query import search_musicbrainz_by_info_or_name
+from cover import download_cover_by_musicbrainz_release_id
+from tagging import tag_mp3_file
 
 for root, dirs, files in os.walk("./input"):
     for file in files:
@@ -27,3 +29,17 @@ for root, dirs, files in os.walk("./input"):
 
         print(f"Searched tag by: Title: {title}, Artist: {artist}, Query: {query}")
         print(tag_result)
+        cover_filename = None
+        if tag_result:
+            try:
+                cover_filename = download_cover_by_musicbrainz_release_id(
+                    tag_result["release_id"]
+                )
+            except:
+                print("Error fetchig cover image - skipping")
+
+        tag_mp3_file(
+            f"./output/{mp3_file_name}",
+            tag_result,
+            cover_art_path=f"./covers/{cover_filename}",
+        )
