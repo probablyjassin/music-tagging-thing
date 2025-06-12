@@ -11,7 +11,7 @@ if not ACOUSTID_API_KEY:
     raise ValueError("ACOUSTID_API_KEY environment variable not set.")
 
 
-def detect_audio_from_file(path: str) -> list[dict]:
+def detect_audio_from_file(path: str) -> dict:
 
     matches: list[dict[str, str]] = []
     filename = os.path.basename(path)

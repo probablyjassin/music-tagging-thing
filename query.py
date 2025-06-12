@@ -22,7 +22,7 @@ def search_musicbrainz_by_info_or_name(
             "title": release["title"],
             "artist": release["artist-credit"][0]["name"],
             "album": release["release-group"]["title"],
-            "date": release["date"],
+            "year": release["date"].split("-")[0],
             "genre": release["tag-list"][0] if release["tag-list"] else None,
         }
 
@@ -47,6 +47,7 @@ def search_musicbrainz_by_info_or_name(
             artist = None
             title = query.strip()
 
+    print("Searching mp3 tag for...")
     print(f"Title: {title}\nArtist: {artist}")
 
     try:

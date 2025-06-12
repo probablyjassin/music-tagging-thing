@@ -1,4 +1,9 @@
-def tag_mp3_file(mp3_filepath, metadata, cover_art_path=None):
+import os
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, TIT2, TPE1, TALB, TDRC, TRCK, TCON, APIC, ID3NoHeaderError
+
+
+def tag_mp3_file(mp3_filepath, metadata: dict[str, str], cover_art_path=None):
     """
     Tags an MP3 file with provided metadata and cover art.
 
@@ -9,7 +14,7 @@ def tag_mp3_file(mp3_filepath, metadata, cover_art_path=None):
     """
     try:
         # Load the MP3 file. If no ID3 header, one will be created.
-        audio = MP3(mp3_filepath)
+        audio: MP3 = MP3(mp3_filepath)
         if not audio.tags:
             audio.add_tags()
 
@@ -20,6 +25,8 @@ def tag_mp3_file(mp3_filepath, metadata, cover_art_path=None):
             audio.tags.add(TPE1(encoding=3, text=[metadata["artist"]]))  # Artist
         if metadata.get("album"):
             audio.tags.add(TALB(encoding=3, text=[metadata["album"]]))  # Album
+        if metadata.get("genre"):
+            audio.tags.add(TCON(encoding=3, text=[metadata["genre"]]))  # Genre
         if metadata.get("year"):
             audio.tags.add(
                 TDRC(encoding=3, text=[metadata["year"]])

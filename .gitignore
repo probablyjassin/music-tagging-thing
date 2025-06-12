@@ -3,6 +3,7 @@ venv
 venv*
 input
 output
+covers
 .env
 .vscode
 __pycache__
