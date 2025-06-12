@@ -2,6 +2,8 @@ import random
 import string
 import musicbrainzngs
 
+from config import VERBOSE
+
 
 def download_cover_by_musicbrainz_release_id(release_id: str) -> str:
     cover_art = musicbrainzngs.get_image_front(release_id)
@@ -10,5 +12,7 @@ def download_cover_by_musicbrainz_release_id(release_id: str) -> str:
     )
     with open("./covers/" + filename, "wb") as f:
         f.write(cover_art)
-        print("Cover art downloaded!")
+
+        if VERBOSE:
+            print("Cover art downloaded!")
     return filename

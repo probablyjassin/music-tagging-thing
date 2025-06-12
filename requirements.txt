@@ -1,7 +1,10 @@
+requests
+python-dotenv
+
 pydub
 pyacoustid
-python-dotenv
 mutagen
 musicbrainzngs
-requests
+
 fuzzywuzzy
+python-Levenshtein

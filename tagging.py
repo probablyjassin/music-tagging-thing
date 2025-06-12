@@ -51,9 +51,11 @@ def tag_mp3_file(mp3_filepath, metadata: dict[str, str], cover_art_path=None):
         else:
             print("No cover art path provided or file does not exist.")
 
-        # Save the changes
         audio.save()
         print(f"Successfully tagged {mp3_filepath}")
+
+        if os.path.exists(cover_art_path):
+            os.remove(cover_art_path)
 
     except ID3NoHeaderError:
         print(f"No ID3 header found in {mp3_filepath}. A new one will be created.")

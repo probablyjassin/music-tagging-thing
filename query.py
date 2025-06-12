@@ -1,9 +1,7 @@
-import os, sys, re
-import requests
+import re
 import musicbrainzngs
-from mutagen.id3 import ID3, TIT2, TPE1, TALB, TDRC, TRCK, TCON, APIC, ID3NoHeaderError
-from mutagen.mp3 import MP3
 
+from config import VERBOSE
 
 musicbrainzngs.set_useragent(
     app="MyMP3Tagger",
@@ -47,8 +45,9 @@ def search_musicbrainz_by_info_or_name(
             artist = None
             title = query.strip()
 
-    print("Searching mp3 tag for...")
-    print(f"Title: {title}\nArtist: {artist}")
+    if VERBOSE:
+        print("Searching mp3 tag for...")
+        print(f"Title: {title}\nArtist: {artist}")
 
     try:
         result_candidate = musicbrainzngs.search_releases(
@@ -59,7 +58,10 @@ def search_musicbrainz_by_info_or_name(
             if releases[0]["title"] == title:
                 return get_tags(releases[0])
         else:
-            print("No result or mismatch, retrying with name and artist reversed...")
+            if VERBOSE:
+                print(
+                    "No result or mismatch, retrying with name and artist reversed..."
+                )
             result_candidate = musicbrainzngs.search_releases(
                 query=(f'recording:"{artist}" AND artist:"{title}"'),
                 limit=5,

@@ -1,14 +1,9 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 import acoustid
 from fuzzywuzzy import fuzz
 
-ACOUSTID_API_KEY = os.getenv("ACOUSTID_API_KEY")
-if not ACOUSTID_API_KEY:
-    raise ValueError("ACOUSTID_API_KEY environment variable not set.")
+from config import ACOUSTID_API_KEY, VERBOSE
 
 
 def detect_audio_from_file(path: str) -> dict:
@@ -16,13 +11,17 @@ def detect_audio_from_file(path: str) -> dict:
     matches: list[dict[str, str]] = []
     filename = os.path.basename(path)
 
-    for _, _, title, artist in acoustid.match(ACOUSTID_API_KEY, path):
+    if VERBOSE:
+        print(f"Trying to match the audio in {path}...")
 
-        # print(f"Score: {score}, Title: {title}, Artist: {artist}")
+    for _, _, title, artist in acoustid.match(ACOUSTID_API_KEY, path):
         matches.append({"title": title, "artist": artist})
 
+    if VERBOSE:
+        print(f"{len(matches)} potential matches found")
+
     if not matches:
-        print("No matches found.")
+        print("No pure audio matches found.")
         return
 
     def get_match_priority(song_dict: dict[str, str]):
