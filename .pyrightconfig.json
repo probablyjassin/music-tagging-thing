@@ -1,0 +1,17 @@
+{
+	"typeCheckingMode": "off",
+	"reportGeneralTypeIssues": "warning",
+	"reportMissingParameterType": "warning",
+	"reportMissingTypeArgument": "warning",
+	"reportMissingTypeStubs": false,
+	"reportUnknownArgumentType": "warning",
+	"reportUnknownVariableType": "warning",
+	"reportUnknownMemberType": "warning",
+	"reportPrivateUsage": "warning",
+	"reportPrivateImportUsage": false,
+	"reportInvalidTypeVarUse": "warning",
+	"reportIncompatibleMethodOverride": "warning",
+	"reportIncompatibleVariableOverride": "warning",
+	"strictFunctionTypes": true,
+	"exclude": ["**/site-packages"]
+}
